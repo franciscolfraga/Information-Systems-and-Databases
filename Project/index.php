@@ -5,32 +5,21 @@
    <title>SIBD</title>
   </head>
   <body>
-    <form method="post" action="/actions/register.php">
-      <table>
-        <tr>
-          <td><label>NAME:<input type="text" name="name"></label></td>
-        </tr>
-        <tr>
-          <td><label>EMAIL:<input type="email" name="email"></label></td>
-        </tr>
-        <tr>
-          <td><label>PASSWORD:<input type="password" name="password"></label></td>
-        </tr>
-      </table>
-      <label>
-        <input type="submit" value="Register">
-      </label>
-    </form>
-    <?php if (isset($_ERROR_MESSAGE)) { ?>
-    <div id="errors">
-      <?=$_ERROR_MESSAGE?>
-    </div>
-    <?php } ?>
+    <nav>
+      <?php if (isset($_SESSION['email'])) { ?>
+        <div id="session">
+          <h3>You are currently logged in!</h3>
+          <a href="/actions/logout.php">Logout</a>
+        </div>
+      <?php } else {
+          include ('views/login.php');
+        } ?>
 
-    <?php if (isset($_SUCCESS_MESSAGE)) { ?>
-    <div id="success">
-      <?=$_SUCCESS_MESSAGE?>
-    </div>
-    <?php } ?>
+        <?php if (!isset($_SESSION['email'])) {
+           include ('views/register.php');
+         } ?>
+    </nav>
+
+    <?php include ('views/errors.php');?>
   </body>
 </html>
